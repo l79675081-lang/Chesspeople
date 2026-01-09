@@ -1,4 +1,158 @@
-index.html
-style.css
-chess-clicker.html
-pawn-runner.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChessPeople</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>♟️ ChessPeople</h1>
+  <p>Your legal mini-game portal! Play safely online.</p>
+</header>
+
+<main class="grid">
+
+  <!-- External Games (Legal Links) -->
+  <a href="https://www.bitlifeapp.com/online" target="_blank" class="card">BitLife</a>
+  <a href="https://1v1.lol" target="_blank" class="card">1v1.LOL</a>
+  <a href="https://orteil.dashnet.org/cookieclicker/" target="_blank" class="card">Cookie Clicker</a>
+  <a href="https://taptapshots.com" target="_blank" class="card">🏀 Tap Tap Shots</a>
+
+  <!-- Original Mini-Games -->
+  <a href="chess-clicker.html" class="card">♟️ Chess Clicker</a>
+  <a href="pawn-runner.html" class="card">🏃 Pawn Runner</a>
+
+</main>
+
+<footer>
+  <p>© ChessPeople – All games legal and original where noted.</p>
+</footer>
+
+</body>
+</html>
+body {
+  background:#121212;
+  color:white;
+  font-family:Arial, sans-serif;
+  margin:0;
+  text-align:center;
+}
+
+header {
+  background:#222;
+  padding:20px;
+}
+
+header h1 {
+  margin:0;
+}
+
+.grid {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:20px;
+  padding:30px;
+}
+
+.card {
+  background:#333;
+  padding:25px;
+  width:180px;
+  border-radius:10px;
+  text-decoration:none;
+  color:white;
+  font-size:18px;
+  transition:0.2s;
+}
+
+.card:hover {
+  background:#444;
+  transform:scale(1.05);
+}
+
+footer {
+  margin-top:50px;
+  color:#888;
+  padding:10px;
+}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chess Clicker</title>
+</head>
+<body style="background:#111;color:white;text-align:center;font-family:Arial">
+
+<h1>♟️ Chess Clicker</h1>
+<h2>Pieces: <span id="score">0</span></h2>
+
+<button onclick="clickPiece()" style="font-size:20px">Collect Piece</button>
+<br><br>
+<button onclick="buyPawn()">Buy Pawn (+1/sec) – 10</button>
+
+<script>
+let score = 0;
+let pawns = 0;
+
+function clickPiece() { score++; update(); }
+
+function buyPawn() {
+  if (score >= 10) {
+    score -= 10;
+    pawns++;
+    update();
+  }
+}
+
+// Passive pieces every second
+setInterval(() => {
+  score += pawns;
+  update();
+}, 1000);
+
+function update() {
+  document.getElementById("score").innerText = score;
+}
+
+// Save/load from localStorage
+const save = JSON.parse(localStorage.getItem("chessClickerSave"));
+if (save) {
+  score = save.score;
+  pawns = save.pawns;
+  update();
+}
+
+setInterval(() => {
+  localStorage.setItem("chessClickerSave", JSON.stringify({score, pawns}));
+}, 5000);
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pawn Runner</title>
+</head>
+<body style="background:black;color:white;text-align:center;font-family:Arial">
+
+<h1>🏃 Pawn Runner</h1>
+<p>Click as fast as you can!</p>
+<h2>Score: <span id="run">0</span></h2>
+
+<button onclick="run()" style="font-size:20px">RUN</button>
+
+<script>
+let runScore = 0;
+
+function run() {
+  runScore++;
+  document.getElementById("run").innerText = runScore;
+}
+</script>
+
+</body>
+</html>
